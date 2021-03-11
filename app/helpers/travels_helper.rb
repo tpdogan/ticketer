@@ -14,4 +14,10 @@ module TravelsHelper
     d = r * c
     return d;
   end
+
+  def cityNames
+    names = []
+    City.all.each { |c| names.push(c.name) }
+    return names.to_json
+  end
 end
