@@ -4,5 +4,5 @@ class Travel < ApplicationRecord
 
   has_many :passengers
 
-  validates :start_id, :finish_id, :type, :periodicity, :hour, :minute, :capacity, :passengers, :speed, :no, :price
+  validates :start_id, :finish_id, :type, :periodicity, :hour, :minute, :capacity, :passengers, :speed, :no, :price, presence: true
 end
