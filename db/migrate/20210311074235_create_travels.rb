@@ -5,7 +5,7 @@ class CreateTravels < ActiveRecord::Migration[6.1]
       t.integer :finish_id
 
       # Plane/Bus/Train
-      t.string :type
+      t.string :vehicle
 
       # Periodicity tells number of times per day
       t.integer :periodicity
@@ -15,7 +15,7 @@ class CreateTravels < ActiveRecord::Migration[6.1]
       t.integer :minute
 
       t.integer :capacity
-      t.integer :passengers
+      t.integer :empty
 
       t.integer :speed
       t.string  :no
