@@ -1,0 +1,64 @@
+<%= form_with(url: '/travels', method: 'get', local: true) do %>
+  <%# Prevent submission when hit enter %>
+  <button type="submit" disabled class="hidden" aria-hidden="true"></button>
+
+  <div class="group">
+    <div class="field mb-4">
+      <div class="control">
+        <%= label_tag 'From', nil, class: "label ml-2" %>
+        <%= text_field_tag :start, nil, class: "input", autocomplete: 'off' %>
+      </div>
+    </div>
+
+    <div class="field mb-4 ml-2">
+      <div class="control">
+        <%= label_tag 'To', nil, class: "label ml-2" %>
+        <%= text_field_tag :finish, nil, class: "input", autocomplete: 'off' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="field mb-4">
+      <div class="control">
+        <%= label_tag 'Adults', nil, class: "label ml-2" %>
+        <%= number_field_tag :passenger_count, 1, class: "input", min: 1, max:4, autocomplete: 'off' %>
+      </div>
+    </div>
+
+    <div class="field mb-4 ml-2">
+      <div class="control">
+        <%= label_tag 'Children (<12)', nil, class: "label ml-2" %>
+        <%= number_field_tag :child_count, 0, class: "input", min: 0, max:4, autocomplete: 'off' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="field mb-4">
+      <div class="control">
+        <%= label_tag 'Date', nil, class: "label ml-2" %>
+        <%= date_field_tag :date, nil, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field mb-4 ml-2">
+      <div class="control">
+        <%= label_tag 'Transfer', nil, class: "label ml-2" %>
+        <div class="is-flex-row-centered radio-box-wrap">
+          <p class="mr-2">Yes</p>
+          <div class="radio-box"><i class="fa fa-check"></i></div>
+          <p class="ml-5 mr-2">No</p>
+          <div class="radio-box"><i class="fa fa-check hidden"></i></div>
+        </div>
+        <%= hidden_field_tag :transfer, value: true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control" style="width: 367px; margin-left: 0.2rem;">
+      <%= submit_tag "Search", class: "button is-warning is-radiusless is-full-width" %>
+    </div>
+  </div>
+<% end %>

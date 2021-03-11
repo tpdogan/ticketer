@@ -1,3 +1,74 @@
-// Place all the styles related to the travels controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+// MIXINS
+@mixin is-flex-row-centered {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+@mixin is-flex-column-centered {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+@mixin hidden {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: absolute !important;
+  top: -10000px !important;
+  left: -10000px !important;
+}
+// GENERAL
+* {
+  font-size: 14px !important;
+}
+.is-flex-row-centered {
+  @include is-flex-row-centered;
+}
+.is-flex-column-centered {
+  @include is-flex-column-centered;
+}
+.is-full-width {
+  width: 100%;
+}
+.hidden {
+  @include hidden;
+}
+.form {
+  width: 400px;
+  background-color: #C8114D;
+  .group {
+    @include is-flex-row-centered;
+  }
+  .control {
+    width: 180px;
+  }
+  .label {
+    color: gold;
+  }
+  .input {
+    border-radius: 0;
+  }
+  .input:active, .input:focus {
+    border-color: #970909;
+    box-shadow: none;
+  }
+  .radio-box-wrap {
+    height: 2.5rem;
+    background-color: #97175f;
+    color: white;
+    font-weight: 900;
+    border: 1px solid white;
+  }
+  .radio-box {
+    @include is-flex-row-centered;
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #970909;
+    color: #c8114d;
+  }
+}
