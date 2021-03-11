@@ -20,7 +20,7 @@ class CreateTravels < ActiveRecord::Migration[6.1]
       t.integer :speed
       t.string  :no
 
-      t.decimal :price, precision: 6, scale: 2
+      t.integer :price
 
       t.timestamps
     end
