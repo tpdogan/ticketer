@@ -65,5 +65,6 @@
   </div>
 </div>
 
-<%= hidden_field_tag :city_list, City.all.order(:name).to_json %>
+<%= hidden_field_tag :city_list, City.all.order(:name).map{|item| {id:item.id,name:item.name,latitude:item.latitude,longutide:item.longitude}} %>
+<%# City.all.order(:name).to_json %>
 <%= javascript_pack_tag 'form' %>
