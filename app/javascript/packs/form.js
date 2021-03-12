@@ -48,11 +48,8 @@ function showPaths(paths) {
         const values = Object.values(item)
 
         for (let i = 0; i < values.length-1; i++) {
-          console.log(values)
           const start = cities.find(item => item.id == values[i])
           const finish = cities.find(item => item.id == values[i+1])
-          console.log(start)
-          console.log(finish)
 
           const tr = document.createElement('tr')
           const th0 = document.createElement('th')
