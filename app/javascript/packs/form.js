@@ -4,6 +4,7 @@ import transferCheck from './modules/transfer'
 
 const cities = JSON.parse(document.getElementById('city_list').value)
 const cityArray = cities.map(item => item.name)
+let selectedDate = document.getElementById('date').valueAsDate
 transferCheck()
 
 autocomplete('start', 'autocompleted__start', cities, 'name', ['name'])
@@ -24,7 +25,7 @@ document.addEventListener('click', (e) => {
     date.setHours(0)
     date.setMinutes(0)
     date.setSeconds(0)
-    if (date <= document.getElementById('date').valueAsDate) {
+    if (date <= selectedDate) {
       fetchPaths(cityArray, showPaths)
     } else {
       alert('Date cannot be in the past!')
@@ -39,6 +40,12 @@ function fillSelect(target) {
 }
 
 function showPaths(paths) {
+
+  const newTables = document.querySelectorAll('.new_table')
+  if (newTables) {
+    newTables.forEach(item => item.remove())
+  }
+
   [0, 1, 2].forEach((num) => {
     const transfer = paths[num]
     const none = document.getElementById(`transfer${num}__none`)
@@ -46,7 +53,6 @@ function showPaths(paths) {
     const body = document.getElementById(`transfer${num}__body`)
     const iconTable = document.getElementById('transfer__icons')
     const control = document.getElementById(`transfer${num}__control`)
-    body.innerHTML = ''
 
     if (!transfer || transfer.length == 0) {
       none.classList.remove('hidden')
@@ -62,6 +68,7 @@ function showPaths(paths) {
         const icons = document.createElement('table')
         icons.innerHTML = iconTable.innerHTML
         icons.classList = iconTable.classList
+        icons.classList.add('new_table')
         icons.classList.remove('hidden')
         icons.tBodies[0].innerHTML = body.innerHTML
         icons.tBodies[0].classList = body.classList
@@ -82,7 +89,7 @@ function showPaths(paths) {
 
           th0.innerHTML = start.name
           th1.innerHTML = finish.name
-          th2.innerHTML = 'date'
+          th2.innerHTML = niceDate(selectedDate)
           th3.innerHTML = 'time'
           th4.innerHTML = niceTime(values[ids + i*7 + 1])
           th5.innerHTML = values[ids + i*7]
@@ -103,9 +110,16 @@ function niceTime(duration) {
   const minute = duration % 60
   let time = ''
   if (hour == 0) {
-    time = minute
+    time = '00:' + Math.floor(minute/10) + '' + (minute%10)
   } else {
-    time = hour + ':' + minute
+    time = Math.floor(hour/10) + '' + (hour%10) + 'h ' + Math.floor(minute/10) + '' + (minute%10) + 'm'
   }
   return time
+}
+
+function niceDate(date) {
+  const day = date.getDate()
+  const month = date.getMonth() + 1
+  const year = date.getYear() + 1900
+  return Math.floor(day/10) + '' + (day%10) + '/' + Math.floor(month/10) + '' + (month%10) + '/' + Math.floor(year/10) + '' + (year%10)
 }
