@@ -4,6 +4,7 @@ class CreateCities < ActiveRecord::Migration[6.1]
       t.string :name
       t.decimal :latitude, precision: 5, scale: 3
       t.decimal :longitude, precision: 6, scale: 3
+      t.string :country
       # city location has error of ~100 meters
 
       t.timestamps

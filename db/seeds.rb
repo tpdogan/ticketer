@@ -79,6 +79,23 @@ def price(type)
   type == 0 ? (500 + rand(301)) : type == 1 ? (10 + rand(41)) : (5 + rand(16))
 end
 
+def duration(city_start, city_finish, type)
+  lat1 = city_start.latitude
+  lon1 = city_start.longitude
+  lat2 = city_finish.latitude
+  lon2 = city_finish.longitude
+  r = 6378.137
+  dLat = lat2 * Math::PI / 180 - lat1 * Math::PI / 180
+  dLon = lon2 * Math::PI / 180 - lon1 * Math::PI / 180
+  a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+          Math.cos(lat1 * Math::PI / 180) * Math.cos(lat2 * Math::PI / 180) *
+          Math.sin(dLon/2) * Math.sin(dLon/2)
+  c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+  d = r * c
+  speed = type == 0 ? 900 : type == 1 ? 120 : 90
+  return (60*d/speed).round
+end
+
 def traveler(cityList, type)
   vehicle = type == 0 ? 'Plane' : type == 1 ? 'Train' : 'Bus'
   capacity = type == 0 ? 120 : type == 1 ? 250 : 50
@@ -94,7 +111,7 @@ def traveler(cityList, type)
         minute: rand(12)*5,
         capacity: capacity,
         empty: rand(capacity+1),
-        speed: speed,
+        duration: duration(first, second, type),
         no: 'td' + (rand(9000)+1000).to_s,
         price: price(type))
   
@@ -107,7 +124,7 @@ def traveler(cityList, type)
         minute: rand(12)*5,
         capacity: capacity,
         empty: rand(capacity+1),
-        speed: speed,
+        duration: duration(first, second, type),
         no: 'td' + (rand(9000)+1000).to_s,
         price: price(type))
     end

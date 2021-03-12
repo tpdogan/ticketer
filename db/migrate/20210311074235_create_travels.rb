@@ -17,7 +17,7 @@ class CreateTravels < ActiveRecord::Migration[6.1]
       t.integer :capacity
       t.integer :empty
 
-      t.integer :speed
+      t.integer :duration
       t.string  :no
 
       t.integer :price

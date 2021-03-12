@@ -13,6 +13,7 @@ class CreatePassengers < ActiveRecord::Migration[6.1]
       t.string :nationality
 
       # Address could well be extended
+      t.string :email
       t.string :address
       t.string :tel
 
