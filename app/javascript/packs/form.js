@@ -36,6 +36,7 @@ function showPaths(paths) {
     const none = document.getElementById(`transfer${num}__none`)
     const table = document.getElementById(`transfer${num}__table`)
     const body = document.getElementById(`transfer${num}__body`)
+    body.innerHTML = ''
 
     if (!transfer || transfer.length == 0) {
       none.classList.remove('hidden')
@@ -46,12 +47,11 @@ function showPaths(paths) {
 
       transfer.forEach((item) => {
         const values = Object.values(item)
-        const ids = (values.length+1)/2
+        const ids = (values.length+7)/8
 
         for (let i = 0; i < ids-1; i++) {
           const start = cities.find(item => item.id == values[i])
           const finish = cities.find(item => item.id == values[i+1])
-          const duration = values[ids + i]
 
           const tr = document.createElement('tr')
           const th0 = document.createElement('th')
@@ -66,9 +66,9 @@ function showPaths(paths) {
           th1.innerHTML = finish.name
           th2.innerHTML = 'date'
           th3.innerHTML = 'time'
-          th4.innerHTML = niceTime(duration)
-          th5.innerHTML = 'vehicle'
-          th6.innerHTML = 'price'
+          th4.innerHTML = niceTime(values[ids + i*7 + 1])
+          th5.innerHTML = values[ids + i*7]
+          th6.innerHTML = values[ids + i*7 + 5]
 
           tr.innerHTML += th0.outerHTML + th1.outerHTML + th2.outerHTML + th3.outerHTML + th4.outerHTML + th5.outerHTML + th6.outerHTML
           body.appendChild(tr)
