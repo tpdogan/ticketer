@@ -1,4 +1,4 @@
-<%= form_with(url: '/travels', method: 'get', local: true) do %>
+<%= simple_form_for(Travel.new) do %>
   <%# Prevent submission when hit enter %>
   <button type="submit" disabled class="hidden" aria-hidden="true"></button>
 
@@ -49,11 +49,11 @@
         <%= label_tag 'Transfer', nil, class: "label ml-2" %>
         <div class="is-flex-row-centered radio-box-wrap">
           <p class="mr-2">Yes</p>
-          <div class="radio-box"><i class="fa fa-check"></i></div>
+          <div class="radio-box" id='yes'><i class="fa fa-check"></i></div>
           <p class="ml-5 mr-2">No</p>
-          <div class="radio-box"><i class="fa fa-check hidden"></i></div>
+          <div class="radio-box" id='no'><i class="fa fa-check hidden"></i></div>
         </div>
-        <%= hidden_field_tag :transfer, value: true %>
+        <%= hidden_field_tag :transfer, 'yes' %>
       </div>
     </div>
   </div>
