@@ -20,4 +20,43 @@ module TravelsHelper
     City.all.order(:name => 'ASC').each { |c| names.push({:name => c.name}) }
     return names.to_json
   end
+
+  def getPaths(city_start_name, city_finish_name, passenger_count, transfer)
+    # Get city objects
+    city_start = City.find_by_name(city_start_name)
+    city_finish = City.find_by_name(city_finish_name)
+
+    # For strict direct travels
+    if transfer == 'no'
+      travels = Travel.where(:start => city_start, :finish => city_finish).where("empty > #{passenger_count}")
+    # For non-strict direct travels
+    else
+      transfer_0 = Travel.where(:start => city_start, :finish => city_finish).where("empty > #{passenger_count}")
+
+      transfer_1 = 
+      ActiveRecord::Base.connection.execute(
+        "SELECT A.start_id AS start_id, A.finish_id AS middle_id, B.finish_id AS finish_id
+        FROM travels A, travels B
+        WHERE A.finish_id = B.start_id
+        AND A.start_id = #{city_start.id}
+        AND B.finish_id = #{city_finish.id}
+        AND A.empty >= #{passenger_count}
+        AND B.empty >= #{passenger_count}")
+
+      transfer_2 = 
+      ActiveRecord::Base.connection.execute(
+        "SELECT A.start_id AS start_id, A.finish_id AS middle_1_id, B.finish_id AS middle_2_id, C.finish_id AS finish_id
+        FROM travels A, travels B, travels C
+        WHERE A.finish_id = B.start_id
+        AND B.finish_id = C.start_id
+        AND A.finish_id != C.finish_id
+        AND A.start_id = #{city_start.id}
+        AND C.finish_id = #{city_finish.id}
+        AND A.empty >= #{passenger_count}
+        AND B.empty >= #{passenger_count}
+        AND C.empty >= #{passenger_count}")
+
+      travels = [transfer_0, transfer_1, transfer_2]
+    end
+  end
 end
