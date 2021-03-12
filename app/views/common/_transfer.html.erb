@@ -1,9 +1,13 @@
 <div class="box mt-5">
   <div class="field">
     <div class="control">
-      <h2 class="title is-3">Direct Routes</h2>
-      <p id="transfer0__none">No direct travel options available.</p>
-      <table class="table is-hoverable has-text-centered is-fullwidth is-bordered is-narrow hidden" id="transfer0__table">
+      <h2 class="title is-3">
+        <%= transfer == 0 ? "Direct Routes" : "#{transfer} Trasnfer Routes" %>
+      </h2>
+      <p id='<%= "transfer#{transfer}__none" %>'>
+        No <%= transfer == 0 ? "direct travel" : "#{transfer} trasnfer" %> options available.
+      </p>
+      <table class="table is-hoverable has-text-centered is-fullwidth is-bordered is-narrow hidden" id='<%= "transfer#{transfer}__table" %>'>
         <thead class="has-background-warning">
           <tr>
             <th>From</th>
@@ -12,7 +16,7 @@
             <th>Time</th>
             <th>Duration</th>
             <th>Vehicle</th>
-            <th>Checkout</th>
+            <th>Price</th>
           </tr>
         </thead>
         <thead class="has-background-warning">
@@ -26,7 +30,7 @@
             <th><i class="fal fa-cart-arrow-down"></i></th>
           </tr>
         </thead>
-        <tbody id="transfer0__body">
+        <tbody id='<%= "transfer#{transfer}__body" %>'>
         </tbody>
       </table>
       
