@@ -40,7 +40,7 @@
     <div class="field mb-4">
       <div class="control">
         <%= label_tag 'Date', nil, class: "label ml-2" %>
-        <%= date_field_tag :date, nil, class: "input" %>
+        <%= date_field_tag :date, Date.today, class: "input", min: Date.today, onkeydown: "return false" %>
       </div>
     </div>
 

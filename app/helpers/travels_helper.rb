@@ -23,7 +23,7 @@ module TravelsHelper
     
     # For strict direct travels
     if transfer == 'no'
-      return travels = [transfer_0]
+      return travels = transfer_0
     # For non-strict direct travels
     else
       transfer_1 = 
@@ -47,7 +47,7 @@ module TravelsHelper
           B.minute AS minute_2,
           B.periodicity AS periodicity_2,
           B.price AS price_2,
-          B.no AS no_2,
+          B.no AS no_2
         FROM travels A, travels B
         WHERE A.finish_id = B.start_id
         AND A.start_id = #{city_start.id}
@@ -85,7 +85,7 @@ module TravelsHelper
           C.minute AS minute_3,
           C.periodicity AS periodicity_3,
           C.price AS price_3,
-          C.no AS no_3,
+          C.no AS no_3
         FROM travels A, travels B, travels C
         WHERE A.finish_id = B.start_id
         AND B.finish_id = C.start_id

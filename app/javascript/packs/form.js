@@ -20,7 +20,15 @@ document.addEventListener('click', (e) => {
     document.getElementById('autocompleted__finish').innerHTML = ''
   }
   if (e.target.id == 'submit') {
-    fetchPaths(cityArray, showPaths)
+    let date = new Date()
+    date.setHours(0)
+    date.setMinutes(0)
+    date.setSeconds(0)
+    if (date <= document.getElementById('date').valueAsDate) {
+      fetchPaths(cityArray, showPaths)
+    } else {
+      alert('Date cannot be in the past!')
+    }
   }
 })
 
