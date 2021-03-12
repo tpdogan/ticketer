@@ -19,11 +19,17 @@ document.addEventListener('click', (e) => {
   if (e.target.id != 'finish') {
     document.getElementById('autocompleted__finish').innerHTML = ''
   }
+  if (e.target.id == 'submit') {
+    fetchPaths(cityArray, showPaths)
+  }
 })
 
 function fillSelect(target) {
   const id = target.id
   const parentId = target.parentElement.parentElement.id.substr(15)
   document.getElementById(parentId).value = id
-  fetchPaths(cityArray)
+}
+
+function showPaths(paths) {
+  console.log(paths)
 }

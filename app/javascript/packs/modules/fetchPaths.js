@@ -1,4 +1,4 @@
-function fetchPaths(cityArray) {
+function fetchPaths(cityArray, callback) {
   const from = document.getElementById('start').value
   const to = document.getElementById('finish').value
   if (cityArray.includes(from) && cityArray.includes(to)) {
@@ -20,7 +20,7 @@ function fetchPaths(cityArray) {
         return response.text()
       })
         .then((data) => {
-          console.log(data)
+          callback(data)
         })
   }
 

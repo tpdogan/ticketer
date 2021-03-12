@@ -1,4 +1,4 @@
-<%= simple_form_for(Travel.new) do %>
+<div class="form p-4">
   <%# Prevent submission when hit enter %>
   <button type="submit" disabled class="hidden" aria-hidden="true"></button>
 
@@ -60,10 +60,10 @@
 
   <div class="field">
     <div class="control" style="width: 367px; margin-left: 0.2rem;">
-      <%= submit_tag "Search", class: "button is-warning is-radiusless is-full-width" %>
+      <%= submit_tag "Search", id: "submit", class: "button is-warning is-radiusless is-full-width" %>
     </div>
   </div>
-<% end %>
+</div>
 
 <%= hidden_field_tag :city_list, City.all.order(:name).to_json %>
 <%= javascript_pack_tag 'form' %>
