@@ -65,5 +65,5 @@
   </div>
 <% end %>
 
-<%= hidden_field_tag :city_list, cityNames() %>
+<%= hidden_field_tag :city_list, City.all.order(:name).to_json %>
 <%= javascript_pack_tag 'form' %>

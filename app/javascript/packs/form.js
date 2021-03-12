@@ -34,7 +34,6 @@ function fetchSelect() {
     console.log(`Travel from ${from} to ${to}!`)
 
     const url ='http://localhost:3000/travels'
-    const token = document.getElementsByName('authenticity_token')[0].value
     const adults = document.getElementById('passenger_count').value
     const children = document.getElementById('child_count').value
     const transfer = document.getElementById('transfer').value
@@ -43,7 +42,6 @@ function fetchSelect() {
     fetch(requestURL, {
       cache: 'no-cache',
       headers: {
-        //'Content-Type': 'application/json',
         'Accept': 'application/json'
       }
     })

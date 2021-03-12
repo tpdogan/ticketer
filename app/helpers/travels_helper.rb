@@ -15,12 +15,6 @@ module TravelsHelper
     return d;
   end
 
-  def cityNames
-    names = []
-    City.all.order(:name => 'ASC').each { |c| names.push({:name => c.name}) }
-    return names.to_json
-  end
-
   def getPaths(city_start_name, city_finish_name, passenger_count, transfer)
     # Get city objects
     city_start = City.find_by_name(city_start_name)
