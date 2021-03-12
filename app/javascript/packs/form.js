@@ -33,12 +33,11 @@ function fillSelect(target) {
 function showPaths(paths) {
   [0, 1, 2].forEach((num) => {
     const transfer = paths[num]
-    console.log(transfer)
     const none = document.getElementById(`transfer${num}__none`)
     const table = document.getElementById(`transfer${num}__table`)
     const body = document.getElementById(`transfer${num}__body`)
 
-    if (transfer.length == 0) {
+    if (!transfer || transfer.length == 0) {
       none.classList.remove('hidden')
       table.classList.add('hidden')
     } else {

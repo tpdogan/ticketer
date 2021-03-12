@@ -20,13 +20,19 @@ module TravelsHelper
     city_start = City.find_by_name(city_start_name)
     city_finish = City.find_by_name(city_finish_name)
 
+    transfer_0 = 
+    ActiveRecord::Base.connection.execute(
+      "SELECT travels.start_id, travels.finish_id
+      FROM travels
+      WHERE travels.start_id = #{city_start.id}
+      AND travels.finish_id = #{city_finish.id}
+      AND travels.empty >= #{passenger_count}")
+    
     # For strict direct travels
     if transfer == 'no'
-      travels = Travel.where(:start => city_start, :finish => city_finish).where("empty > #{passenger_count}")
+      return travels = [transfer_0]
     # For non-strict direct travels
     else
-      transfer_0 = Travel.where(:start => city_start, :finish => city_finish).where("empty > #{passenger_count}")
-
       transfer_1 = 
       ActiveRecord::Base.connection.execute(
         "SELECT A.start_id AS start_id, A.finish_id AS middle_id, B.finish_id AS finish_id
@@ -50,7 +56,7 @@ module TravelsHelper
         AND B.empty >= #{passenger_count}
         AND C.empty >= #{passenger_count}")
 
-      travels = [transfer_0, transfer_1, transfer_2]
+      return travels = [transfer_0, transfer_1, transfer_2]
     end
   end
 end
