@@ -8,7 +8,7 @@ function fetchPaths(cityArray, callback) {
     const adults = document.getElementById('passenger_count').value
     const children = document.getElementById('child_count').value
     const transfer = document.getElementById('transfer').value
-    const requestURL = url + `?request=path&from=${from}&to=${to}&passengers=${adults + children}&transfer=${transfer}`
+    const requestURL = url + `?request=path&from=${from}&to=${to}&passengers=${Number(adults) + Number(children)}&transfer=${transfer}`
 
     fetch(requestURL, {
       cache: 'no-cache',

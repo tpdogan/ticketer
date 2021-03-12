@@ -6,7 +6,7 @@ module TravelsHelper
 
     transfer_0 = 
     ActiveRecord::Base.connection.execute(
-      "SELECT travels.start_id, travels.finish_id
+      "SELECT travels.start_id, travels.finish_id, travels.duration
       FROM travels
       WHERE travels.start_id = #{city_start.id}
       AND travels.finish_id = #{city_finish.id}
@@ -19,7 +19,7 @@ module TravelsHelper
     else
       transfer_1 = 
       ActiveRecord::Base.connection.execute(
-        "SELECT A.start_id AS start_id, A.finish_id AS middle_id, B.finish_id AS finish_id
+        "SELECT A.start_id AS start_id, A.finish_id AS middle_id, B.finish_id AS finish_id, A.duration AS duration_1, B.duration AS duration_2
         FROM travels A, travels B
         WHERE A.finish_id = B.start_id
         AND A.start_id = #{city_start.id}
@@ -29,10 +29,11 @@ module TravelsHelper
 
       transfer_2 = 
       ActiveRecord::Base.connection.execute(
-        "SELECT A.start_id AS start_id, A.finish_id AS middle_1_id, B.finish_id AS middle_2_id, C.finish_id AS finish_id
+        "SELECT A.start_id AS start_id, A.finish_id AS middle_1_id, B.finish_id AS middle_2_id, C.finish_id AS finish_id, A.duration AS duration_1, B.duration AS duration_2, C.duration AS duration_3
         FROM travels A, travels B, travels C
         WHERE A.finish_id = B.start_id
         AND B.finish_id = C.start_id
+        AND A.start_id != C.start_id
         AND A.finish_id != C.finish_id
         AND A.start_id = #{city_start.id}
         AND C.finish_id = #{city_finish.id}

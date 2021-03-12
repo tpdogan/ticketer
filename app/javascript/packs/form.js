@@ -46,10 +46,12 @@ function showPaths(paths) {
 
       transfer.forEach((item) => {
         const values = Object.values(item)
+        const ids = (values.length+1)/2
 
-        for (let i = 0; i < values.length-1; i++) {
+        for (let i = 0; i < ids-1; i++) {
           const start = cities.find(item => item.id == values[i])
           const finish = cities.find(item => item.id == values[i+1])
+          const duration = values[ids + i]
 
           const tr = document.createElement('tr')
           const th0 = document.createElement('th')
@@ -64,7 +66,7 @@ function showPaths(paths) {
           th1.innerHTML = finish.name
           th2.innerHTML = 'date'
           th3.innerHTML = 'time'
-          th4.innerHTML = 'duration'
+          th4.innerHTML = niceTime(duration)
           th5.innerHTML = 'vehicle'
           th6.innerHTML = 'price'
 
@@ -74,4 +76,16 @@ function showPaths(paths) {
       })
     }
   })
+}
+
+function niceTime(duration) {
+  const hour = Math.round(duration/60)
+  const minute = duration % 60
+  let time = ''
+  if (hour == 0) {
+    time = minute
+  } else {
+    time = hour + ':' + minute
+  }
+  return time
 }
