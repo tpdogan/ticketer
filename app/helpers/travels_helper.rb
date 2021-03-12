@@ -23,7 +23,7 @@ module TravelsHelper
     
     # For strict direct travels
     if transfer == 'no'
-      return travels = transfer_0
+      return travels = [transfer_0]
     # For non-strict direct travels
     else
       transfer_1 = 

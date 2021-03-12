@@ -44,6 +44,8 @@ function showPaths(paths) {
     const none = document.getElementById(`transfer${num}__none`)
     const table = document.getElementById(`transfer${num}__table`)
     const body = document.getElementById(`transfer${num}__body`)
+    const iconTable = document.getElementById('transfer__icons')
+    const control = document.getElementById(`transfer${num}__control`)
     body.innerHTML = ''
 
     if (!transfer || transfer.length == 0) {
@@ -56,6 +58,14 @@ function showPaths(paths) {
       transfer.forEach((item) => {
         const values = Object.values(item)
         const ids = (values.length+7)/8
+
+        const icons = document.createElement('table')
+        icons.innerHTML = iconTable.innerHTML
+        icons.classList = iconTable.classList
+        icons.classList.remove('hidden')
+        icons.tBodies[0].innerHTML = body.innerHTML
+        icons.tBodies[0].classList = body.classList
+        icons.tBodies[0].classList.remove('hidden')
 
         for (let i = 0; i < ids-1; i++) {
           const start = cities.find(item => item.id == values[i])
@@ -79,8 +89,10 @@ function showPaths(paths) {
           th6.innerHTML = values[ids + i*7 + 5]
 
           tr.innerHTML += th0.outerHTML + th1.outerHTML + th2.outerHTML + th3.outerHTML + th4.outerHTML + th5.outerHTML + th6.outerHTML
-          body.appendChild(tr)
+
+          icons.tBodies[0].appendChild(tr)
         }
+        control.appendChild(icons)
       })
     }
   })
