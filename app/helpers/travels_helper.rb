@@ -16,8 +16,8 @@ module TravelsHelper
   end
 
   def cityNames
-    names = {}
-    City.all.each { |c| names[c.id] = c.name }
+    names = []
+    City.all.order(:name => 'ASC').each { |c| names.push({:name => c.name}) }
     return names.to_json
   end
 end

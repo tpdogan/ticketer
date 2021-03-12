@@ -7,6 +7,7 @@
       <div class="control">
         <%= label_tag 'From', nil, class: "label ml-2" %>
         <%= text_field_tag :start, nil, class: "input", autocomplete: 'off' %>
+        <div id="autocompleted__start" class="is-absolute autocompleted"></div>
       </div>
     </div>
 
@@ -14,6 +15,7 @@
       <div class="control">
         <%= label_tag 'To', nil, class: "label ml-2" %>
         <%= text_field_tag :finish, nil, class: "input", autocomplete: 'off' %>
+        <div id="autocompleted__finish" class="is-absolute autocompleted"></div>
       </div>
     </div>
   </div>
@@ -64,3 +66,4 @@
 <% end %>
 
 <%= hidden_field_tag :city_list, cityNames() %>
+<%= javascript_pack_tag 'form' %>
