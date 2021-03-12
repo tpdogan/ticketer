@@ -31,5 +31,51 @@ function fillSelect(target) {
 }
 
 function showPaths(paths) {
-  console.log(paths)
+  [0, 1, 2].forEach((num) => {
+    const transfer = paths[num]
+    console.log(transfer)
+    const none = document.getElementById(`transfer${num}__none`)
+    const table = document.getElementById(`transfer${num}__table`)
+    const body = document.getElementById(`transfer${num}__body`)
+
+    if (transfer.length == 0) {
+      none.classList.remove('hidden')
+      table.classList.add('hidden')
+    } else {
+      none.classList.add('hidden')
+      table.classList.remove('hidden')
+
+      transfer.forEach((item) => {
+        const values = Object.values(item)
+
+        for (let i = 0; i < values.length-1; i++) {
+          console.log(values)
+          const start = cities.find(item => item.id == values[i])
+          const finish = cities.find(item => item.id == values[i+1])
+          console.log(start)
+          console.log(finish)
+
+          const tr = document.createElement('tr')
+          const th0 = document.createElement('th')
+          const th1 = document.createElement('th')
+          const th2 = document.createElement('th')
+          const th3 = document.createElement('th')
+          const th4 = document.createElement('th')
+          const th5 = document.createElement('th')
+          const th6 = document.createElement('th')
+
+          th0.innerHTML = start.name
+          th1.innerHTML = finish.name
+          th2.innerHTML = 'date'
+          th3.innerHTML = 'time'
+          th4.innerHTML = 'duration'
+          th5.innerHTML = 'vehicle'
+          th6.innerHTML = 'price'
+
+          tr.innerHTML += th0.outerHTML + th1.outerHTML + th2.outerHTML + th3.outerHTML + th4.outerHTML + th5.outerHTML + th6.outerHTML
+          body.appendChild(tr)
+        }
+      })
+    }
+  })
 }

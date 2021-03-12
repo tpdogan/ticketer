@@ -20,7 +20,7 @@ function fetchPaths(cityArray, callback) {
         return response.text()
       })
         .then((data) => {
-          callback(data)
+          callback(JSON.parse(JSON.parse(data).paths))
         })
   }
 
