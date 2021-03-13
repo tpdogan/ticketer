@@ -1,5 +1,6 @@
 import autocomplete from './modules/autocomplete'
 import fetchPaths from './modules/fetchPaths'
+import niceDuration from './modules/niceDuration'
 import transferCheck from './modules/transfer'
 
 const cities = JSON.parse(document.getElementById('city_list').value)
@@ -105,18 +106,6 @@ function showPaths(paths) {
   })
 }
 
-function niceDuration(duration) {
-  const hour = Math.round(duration/60)
-  const minute = duration % 60
-  let time = ''
-  if (hour == 0) {
-    time = '00:' + Math.floor(minute/10) + '' + (minute%10)
-  } else {
-    time = Math.floor(hour/10) + '' + (hour%10) + 'h ' + Math.floor(minute/10) + '' + (minute%10) + 'm'
-  }
-  return time
-}
-
 function niceDate(date) {
   const day = date.getDate()
   const month = date.getMonth() + 1
@@ -139,6 +128,6 @@ function niceTime(hour, minute, periodicity) {
     const oldMinutes = date.getMinutes()
     date.setMinutes(oldMinutes + (24*60 / periodicity))
   }
-  
+
   return date
 }
