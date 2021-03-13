@@ -12,10 +12,10 @@
   <div class="field">
     <div class="control">
     <%= f.input :first_name,
-                required: true,
+                required: false,
                 autofocus: true,
                 input_html: { class: "input" },
-                label_html: { class: "label" },
+                label_html: { class: "label ml-2" },
                 wrapper: false,
                 error: false %>
     </div>
@@ -25,10 +25,10 @@
   <div class="field">
     <div class="control">
     <%= f.input :last_name,
-                required: true,
+                required: false,
                 autofocus: true,
                 input_html: { class: "input" },
-                label_html: { class: "label" },
+                label_html: { class: "label ml-2" },
                 wrapper: false,
                 error: false %>
     </div>
@@ -37,15 +37,17 @@
   
   <div class="field">
     <div class="control">
-    <%= f.input :date_of_birth,
+      <%= label_tag 'Date', nil, class: "label ml-2" %>
+      <%= date_field_tag :date, Date.today - 30*365 - 8, class: "input", max: Date.yesterday, onkeydown: "return false" %>
+    <%#= f.input :date_of_birth,
                 as: :date,
                 start_year: Date.today.year - 90,
                 end_year: Date.today.year,
                 order: [:day, :month, :year],
-                required: true,
+                required: false,
                 autofocus: true,
                 input_html: { class: "input" },
-                label_html: { class: "label" },
+                label_html: { class: "label ml-2" },
                 wrapper: false,
                 error: false %>
     </div>
@@ -55,10 +57,10 @@
   <div class="field">
     <div class="control">
     <%= f.input :passport_number,
-                required: true,
+                required: false,
                 autofocus: true,
                 input_html: { class: "input" },
-                label_html: { class: "label" },
+                label_html: { class: "label ml-2" },
                 wrapper: false,
                 error: false %>
     </div>
@@ -68,10 +70,10 @@
   <div class="field">
     <div class="control">
     <%= f.input :nationality,
-                required: true,
+                required: false,
                 autofocus: true,
                 input_html: { class: "input" },
-                label_html: { class: "label" },
+                label_html: { class: "label ml-2" },
                 wrapper: false,
                 error: false %>
     </div>
@@ -81,10 +83,10 @@
   <div class="field">
     <div class="control">
     <%= f.input :email,
-                required: true,
+                required: false,
                 autofocus: true,
                 input_html: { class: "input" },
-                label_html: { class: "label" },
+                label_html: { class: "label ml-2" },
                 wrapper: false,
                 error: false %>
     </div>
@@ -94,10 +96,10 @@
   <div class="field">
     <div class="control">
     <%= f.input :tel,
-                required: true,
+                required: false,
                 autofocus: true,
                 input_html: { class: "input" },
-                label_html: { class: "label" },
+                label_html: { class: "label ml-2" },
                 label: "Phone number",
                 wrapper: false,
                 error: false %>
@@ -108,10 +110,10 @@
   <div class="field">
     <div class="control">
     <%= f.input :address,
-                required: true,
+                required: false,
                 autofocus: true,
                 input_html: { class: "input" },
-                label_html: { class: "label" },
+                label_html: { class: "label ml-2" },
                 wrapper: false,
                 error: false %>
     </div>

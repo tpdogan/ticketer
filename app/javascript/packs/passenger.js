@@ -5,14 +5,14 @@ const prevPass = document.getElementsByClassName('passenger__prev')
 for (let i = 0; i < nextPass.length; i++) {
   const element = nextPass[i]
   element.addEventListener('click', (event) => {
-    formEvent(event, element.id-1, element.id)
+    formEvent(event, Number(element.id)-1, element.id)
   })
 }
 
 for (let i = 0; i < prevPass.length; i++) {
   const element = prevPass[i]
   element.addEventListener('click', (event) => {
-    formEvent(event, element.id+1, element.id)
+    formEvent(event, Number(element.id)+1, element.id)
   })
 }
 
@@ -35,7 +35,7 @@ function formEvent(event, idNow, idLater) {
 
 function checkFields(id) {
   const form = document.getElementById(`passenger__form-${id}`)
-  const required = form.querySelectorAll('.input.required')
+  const required = form.querySelectorAll('.optional.input')
   for (let i = 0; i < required.length; i++) {
     const input = required[i]
     if (!input.value) {
