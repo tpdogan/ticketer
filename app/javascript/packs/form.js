@@ -49,7 +49,6 @@ function showPaths(paths) {
   }
 
   [0, 1, 2].forEach((num) => {
-    console.log(paths)
     const transfer = paths[num]
     const none = document.getElementById(`transfer${num}__none`)
     const table = document.getElementById(`transfer${num}__table`)
@@ -116,11 +115,31 @@ function showPaths(paths) {
 
           icons.tBodies[0].appendChild(tr)
         }
+        addBuyButton(icons, item)
         icons.id = arrive
         orderArrivalTime(control, icons)
       })
     }
   })
+}
+
+function addBuyButton(table, data) {
+  const buytr = document.createElement('tr')
+
+  const buyth = document.createElement('th')
+  buyth.colSpan = 7
+  buyth.classList.add('p-0')
+
+  const buybtn = document.createElement('button')
+  buybtn.className = 'button is-success is-full-width is-radiusless'
+  buybtn.innerHTML = 'Buy It NOW'
+  buybtn.addEventListener('click', () => {
+    location.href += 'passengers?' + Object.entries(data).map(e => e.join('=')).join('&');
+  })
+
+  buyth.appendChild(buybtn)
+  buytr.appendChild(buyth)
+  table.tBodies[0].appendChild(buytr)
 }
 
 function orderArrivalTime(control, table) {
