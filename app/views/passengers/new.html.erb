@@ -2,6 +2,9 @@
   <%= image_tag('checkout', style: 'position: absolute; min-width: 100%; min-height: 100%; z-index: -10; left: 0; top: 0;') %>
 
   <div class="container">
+
+    <%= render partial: 'common/transfer', :locals => {:transfer => -1} %>
+
     <div class="columns">
       <div class="column is-6 is-offset-3 has-background-light is-relative">
         <%= hidden_field_tag :count, params[:count] %>
@@ -13,4 +16,5 @@
   </div>
 </section>
 
+<%= hidden_field_tag :city_list, City.all.order(:name).map{ |item| {id:item.id, name:item.name, country:item.country, latitude:item.latitude, longitude:item.longitude} }.to_json %>
 <%= javascript_pack_tag 'passenger' %>

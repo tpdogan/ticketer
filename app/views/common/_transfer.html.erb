@@ -1,12 +1,18 @@
 <div class="box mt-5">
   <div class="field">
     <div class="control" id='<%= "transfer#{transfer}__control" %>'>
-      <h2 class="title is-3">
-        <%= transfer == 0 ? "Direct Routes" : "#{transfer} Transfer Routes" %>
-      </h2>
-      <p id='<%= "transfer#{transfer}__none" %>'>
-        No <%= transfer == 0 ? "direct travel" : "#{transfer} transfer" %> options available.
-      </p>
+
+      <% if transfer != -1 %>
+        <h2 class="title">
+          <%= transfer == 0 ? "Direct Routes" : "#{transfer} Transfer Routes" %>
+        </h2>
+        <p id='<%= "transfer#{transfer}__none" %>'>
+          No <%= transfer == 0 ? "direct travel" : "#{transfer} transfer" %> options available.
+        </p>
+      <% else %>
+        <h2 class="title has-text-centered has-text-primary" style="font-size: 2rem !important;">Selected Travel Option</h2>
+      <% end %>
+
       <table class="table is-hoverable has-text-centered is-fullwidth is-bordered is-narrow hidden mb-0" id='<%= "transfer#{transfer}__table" %>'>
         <thead class="has-background-warning">
           <tr>

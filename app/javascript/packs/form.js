@@ -53,9 +53,9 @@ function showPaths(paths) {
     const transfer = paths[num]
     const none = document.getElementById(`transfer${num}__none`)
     const table = document.getElementById(`transfer${num}__table`)
-    const body = document.getElementById(`transfer${num}__body`)
-    const iconTable = document.getElementById('transfer__icons')
     const control = document.getElementById(`transfer${num}__control`)
+    const iconTable = document.getElementById('transfer__icons')
+    const body = document.getElementById(`transfer${num}__body`)
 
     if (!transfer || transfer.length == 0) {
       none.classList.remove('hidden')
@@ -65,6 +65,7 @@ function showPaths(paths) {
       table.classList.remove('hidden')
 
       transfer.forEach((item) => {
+        console.log(item)
         const icons = dataToTable(item, cities, iconTable, body)
         addBuyButton(icons, item)
         orderArrivalTime(control, icons)
@@ -87,7 +88,8 @@ function addBuyButton(table, data) {
     location.href += 
     'passengers/new?' +
     `count=${passenger_count}&` +
-    Object.entries(data).map(e => e.join('=')).join('&')
+    //Object.entries(data).map(e => e.join('=')).join('&')
+    JSON.stringify(data)
   })
 
   buyth.appendChild(buybtn)

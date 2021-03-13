@@ -1,6 +1,10 @@
+import dataToTable from "./modules/dataToTable"
+
 const total = document.getElementById('count')
 const nextPass = document.getElementsByClassName('passenger__next')
 const prevPass = document.getElementsByClassName('passenger__prev')
+
+fillTravelInfo()
 
 for (let i = 0; i < nextPass.length; i++) {
   const element = nextPass[i]
@@ -44,4 +48,24 @@ function checkFields(id) {
     }
   }
   return true
+}
+
+function fillTravelInfo() {
+  const cities = JSON.parse(document.getElementById('city_list').value)
+  const body = document.getElementById(`transfer-1__body`)
+  const table = document.getElementById('transfer__icons')
+  const data = urlToData(location.href)
+  const dataTable = dataToTable(data, cities, table, body)
+
+  const control = document.getElementById(`transfer-1__control`)
+  control.appendChild(dataTable)
+
+  const headings = document.getElementById(`transfer-1__table`)
+  headings.classList.remove('hidden')
+}
+
+function urlToData(url) {
+  const dataPos = url.indexOf('&') + 1
+  const dataStr = url.substr(dataPos).replaceAll('%22', '"')
+  return JSON.parse(dataStr)
 }
