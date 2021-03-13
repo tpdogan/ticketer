@@ -112,8 +112,8 @@ function showPaths(paths) {
 
           th0.innerHTML = start.name
           th1.innerHTML = finish.name
-          th2.innerHTML = niceDate(selectedDate)
-          th3.innerHTML = nextTravelTime
+          th2.innerHTML = niceDate(nextTravelTime)
+          th3.innerHTML = niceTime(nextTravelTime, new Date(arrive))
           th4.innerHTML = niceDuration(dur)
           th5.innerHTML = vehicle
           th6.innerHTML = price
@@ -133,6 +133,22 @@ function niceDate(date) {
   const month = date.getMonth() + 1
   const year = date.getYear() + 1900
   return Math.floor(day/10) + '' + (day%10) + '/' + Math.floor(month/10) + '' + (month%10) + '/' + Math.floor(year/10) + '' + (year%10)
+}
+
+function niceTime(dateStart, dateFinish) {
+  const hourStart = Math.floor(dateStart.getHours() / 10) + '' + dateStart.getHours() % 10
+  const hourFinish = Math.floor(dateFinish.getHours() / 10) + '' + dateFinish.getHours() % 10
+  const minStart = Math.floor(dateStart.getMinutes() / 10) + '' + dateStart.getMinutes() % 10
+  const minFinish = Math.floor(dateFinish.getMinutes() / 10) + '' + dateFinish.getMinutes() % 10
+  const dayDiff = Math.floor(Math.round((dateFinish-dateStart)/1000)/86400)
+  let time = 'Depart ' + hourStart + ':' + minStart + '\n' +
+             'Arrive ' + hourFinish + ':' + minFinish
+  let extra = (hourStart > hourFinish) ? 1 : 0
+  extra += dayDiff
+  if (extra > 0) {
+    time += ` (+${extra})`
+  }
+  return time
 }
 
 function nextTime(startDate, hour, minute, periodicity) {
