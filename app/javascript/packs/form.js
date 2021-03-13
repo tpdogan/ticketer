@@ -7,6 +7,7 @@ import transferCheck from './modules/transfer'
 const cities = JSON.parse(document.getElementById('city_list').value)
 const cityArray = cities.map(item => item.name)
 let selectedDate = document.getElementById('date').valueAsDate
+let passenger_count = 1
 transferCheck()
 
 autocomplete('start', 'autocompleted__start', cities, 'name', ['name'])
@@ -28,6 +29,7 @@ document.addEventListener('click', (e) => {
     date.setMinutes(0)
     date.setSeconds(0)
     if (date <= selectedDate) {
+      passenger_count = Number(document.getElementById('passenger_count').value) + Number(document.getElementById('child_count').value)
       fetchPaths(cityArray, showPaths)
     } else {
       alert('Date cannot be in the past!')
@@ -134,7 +136,10 @@ function addBuyButton(table, data) {
   buybtn.className = 'button is-success is-full-width is-radiusless'
   buybtn.innerHTML = 'Buy It NOW'
   buybtn.addEventListener('click', () => {
-    location.href += 'passengers/new?' + Object.entries(data).map(e => e.join('=')).join('&');
+    location.href += 
+    'passengers/new?' +
+    `count=${passenger_count}` +
+    Object.entries(data).map(e => e.join('=')).join('&')
   })
 
   buyth.appendChild(buybtn)
