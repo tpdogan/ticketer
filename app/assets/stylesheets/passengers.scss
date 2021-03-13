@@ -1,3 +1,30 @@
-// Place all the styles related to the passengers controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.passenger__form {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 3rem;
+  background-color: #ece1e4;
+}
+.passenger__buy {
+  display: none !important;
+}
+.passenger__prev {
+  display: inline-flex !important;
+}
+.passenger__next {
+  display: inline-flex !important;
+}
+.passenger__form:last-child {
+  .passenger__buy {
+    display: inline-flex !important;
+  }
+  .passenger__next {
+    display: none !important;
+  }
+}
+#passenger__form-1 {
+  .passenger__prev {
+    display: none !important;
+  }
+}

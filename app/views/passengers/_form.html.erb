@@ -1,6 +1,13 @@
-<%= simple_form_for(@passenger) do |f| %>
+<%= simple_form_for(passenger, html: {id: "passenger__form-#{number}", class: 'passenger__form', style: "z-index: #{params[:count].to_i-number.to_i}"}) do |f| %>
   <%# Prevent submission when hit enter %>
   <button type="submit" disabled class="hidden" aria-hidden="true"></button>
+
+  <%# Add passenger number %>
+  <%= hidden_field_tag :number, number %>
+
+  <p class="title has-text-centered">
+    <%= "Passenger #{number}" %>
+  </p>
 
   <div class="field">
     <div class="control">
@@ -12,7 +19,7 @@
                 wrapper: false,
                 error: false %>
     </div>
-    <p class='<%= "help is-danger #{"hidden" if @passenger.errors[:first_name].empty?}" %>' id="passenger_first_name_error">Please enter your first name</p>
+    <p class='<%= "help is-danger #{"hidden" if passenger.errors[:first_name].empty?}" %>' id="passenger_first_name_error">Please enter your first name</p>
   </div>
   
   <div class="field">
@@ -25,7 +32,7 @@
                 wrapper: false,
                 error: false %>
     </div>
-    <p class='<%= "help is-danger #{"hidden" if @passenger.errors[:last_name].empty?}" %>' id="passenger_last_name_error">Please enter your last name</p>
+    <p class='<%= "help is-danger #{"hidden" if passenger.errors[:last_name].empty?}" %>' id="passenger_last_name_error">Please enter your last name</p>
   </div>
   
   <div class="field">
@@ -42,7 +49,7 @@
                 wrapper: false,
                 error: false %>
     </div>
-    <p class='<%= "help is-danger #{"hidden" if @passenger.errors[:date_of_birth].empty?}" %>' id="passenger_date_of_birth_error">Please enter your date of birth</p>
+    <p class='<%= "help is-danger #{"hidden" if passenger.errors[:date_of_birth].empty?}" %>' id="passenger_date_of_birth_error">Please enter your date of birth</p>
   </div>
   
   <div class="field">
@@ -55,7 +62,7 @@
                 wrapper: false,
                 error: false %>
     </div>
-    <p class='<%= "help is-danger #{"hidden" if @passenger.errors[:passport_number].empty?}" %>' id="passenger_last_name_error">Please enter your passport number</p>
+    <p class='<%= "help is-danger #{"hidden" if passenger.errors[:passport_number].empty?}" %>' id="passenger_last_name_error">Please enter your passport number</p>
   </div>
   
   <div class="field">
@@ -68,7 +75,7 @@
                 wrapper: false,
                 error: false %>
     </div>
-    <p class='<%= "help is-danger #{"hidden" if @passenger.errors[:nationality].empty?}" %>' id="passenger_last_name_error">Please enter your nationality</p>
+    <p class='<%= "help is-danger #{"hidden" if passenger.errors[:nationality].empty?}" %>' id="passenger_last_name_error">Please enter your nationality</p>
   </div>
   
   <div class="field">
@@ -81,7 +88,7 @@
                 wrapper: false,
                 error: false %>
     </div>
-    <p class='<%= "help is-danger #{"hidden" if @passenger.errors[:email].empty?}" %>' id="passenger_last_name_error">Please enter your email</p>
+    <p class='<%= "help is-danger #{"hidden" if passenger.errors[:email].empty?}" %>' id="passenger_last_name_error">Please enter your email</p>
   </div>
   
   <div class="field">
@@ -95,7 +102,7 @@
                 wrapper: false,
                 error: false %>
     </div>
-    <p class='<%= "help is-danger #{"hidden" if @passenger.errors[:tel].empty?}" %>' id="passenger_last_name_error">Please enter your phone number</p>
+    <p class='<%= "help is-danger #{"hidden" if passenger.errors[:tel].empty?}" %>' id="passenger_last_name_error">Please enter your phone number</p>
   </div>
   
   <div class="field">
@@ -108,13 +115,25 @@
                 wrapper: false,
                 error: false %>
     </div>
-    <p class='<%= "help is-danger #{"hidden" if @passenger.errors[:address].empty?}" %>' id="passenger_last_name_error">Please enter your address</p>
+    <p class='<%= "help is-danger #{"hidden" if passenger.errors[:address].empty?}" %>' id="passenger_last_name_error">Please enter your address</p>
   </div>
 
   <%# Submit button %>
   <div class="field">
     <div class="control">
-      <%= f.button :submit, "Buy", class: "button is-primary is-full-width", id: "passenger_buy" %>
+      <%= f.button :submit, "Buy", class: "button is-success is-full-width passenger__buy", id: "passenger__buy" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <button class="button is-primary is-full-width passenger__next" id='<%= number+1 %>'>Next passenger</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <button class="button is-danger is-full-width passenger__prev" id='<%= number-1 %>'>Previous passenger</button>
     </div>
   </div>
 <% end %>

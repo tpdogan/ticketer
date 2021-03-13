@@ -138,7 +138,7 @@ function addBuyButton(table, data) {
   buybtn.addEventListener('click', () => {
     location.href += 
     'passengers/new?' +
-    `count=${passenger_count}` +
+    `count=${passenger_count}&` +
     Object.entries(data).map(e => e.join('=')).join('&')
   })
 

@@ -1,6 +1,9 @@
 class PassengersController < ApplicationController
   def new
-    @passenger = Passenger.new
+    @passengers = []
+    params[:count].to_i.times do |i|
+      @passengers.push([i+1, Passenger.new])
+    end
   end
   def create
   end
