@@ -37,8 +37,12 @@
   
   <div class="field">
     <div class="control">
-      <%= label_tag 'Date', nil, class: "label ml-2" %>
-      <%= date_field_tag :date, Date.today - 30*365 - 8, class: "input", max: Date.yesterday, onkeydown: "return false" %>
+      <%= label_tag 'Date of birth', nil, class: "label ml-2" %>
+      <%= date_field_tag :date, Date.today - 30*365 - 8,
+                          class: "input optional",
+                          id: "passenger_date_of_birth",
+                          max: Date.yesterday,
+                          onkeydown: "return false" %>
     <%#= f.input :date_of_birth,
                 as: :date,
                 start_year: Date.today.year - 90,

@@ -7,7 +7,6 @@
 
     <div class="columns">
       <div class="column is-6 is-offset-3 has-background-light is-relative">
-        <%= hidden_field_tag :count, params[:count] %>
         <% @passengers.each do |array| %>
           <%= render partial: 'passengers/form', locals: {number: array.first, passenger: array.second} %>
         <% end %>

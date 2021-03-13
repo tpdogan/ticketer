@@ -1,8 +1,9 @@
 import dataToTable from "./modules/dataToTable"
 
-const total = document.getElementById('count')
 const nextPass = document.getElementsByClassName('passenger__next')
 const prevPass = document.getElementsByClassName('passenger__prev')
+const buyAll = document.getElementsByClassName('passenger__buy')
+const buy = buyAll[buyAll.length-1]
 
 fillTravelInfo()
 
@@ -18,6 +19,35 @@ for (let i = 0; i < prevPass.length; i++) {
   element.addEventListener('click', (event) => {
     formEvent(event, Number(element.id)+1, element.id)
   })
+}
+
+buy.addEventListener('click', (e) => {
+  e.preventDefault()
+  const travelData = parameterize('travel',urlToData(location.href))
+  const formData = collectFormData()
+  let passengerData = ''
+
+  for (const key in formData) {
+    passengerData += parameterize(key, formData[key])
+  }
+  const auth = document.createElement('input')
+  auth.name = 'authenticity_token'
+  auth.value = document.getElementsByName('authenticity_token')[0].value
+
+  const form = document.createElement('form')
+  form.appendChild(auth)
+  form.method = 'post'
+  form.action = '/passengers?' + travelData + passengerData
+  document.body.appendChild(form)
+  form.submit()
+})
+
+function parameterize(model, object) {
+  let param = ''
+  for (const key in object) {
+    param += `${model}[${key}]=${object[key]}&`
+  }
+  return param
 }
 
 function hideAll() {
@@ -68,4 +98,23 @@ function urlToData(url) {
   const dataPos = url.indexOf('&') + 1
   const dataStr = url.substr(dataPos).replaceAll('%22', '"')
   return JSON.parse(dataStr)
+}
+
+function collectFormData() {
+  let data = {}
+  const forms = document.getElementsByClassName('passenger__form')
+  for (let i = 0; i < forms.length; i++) {
+    const element = forms[i]
+    if (!checkFields(i+1)) {return false;}
+    let passengerData = {}
+    const inputs = element.querySelectorAll('.optional.input')
+
+    for (let j = 0; j < inputs.length; j++) {
+      const item = inputs[j];
+      passengerData[item.id.substr(10)] = item.value
+    }
+
+    data[`passenger_${i+1}`] = passengerData
+  }
+  return data
 }
