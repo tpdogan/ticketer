@@ -155,7 +155,7 @@ function niceTime(dateStart, dateFinish) {
   const dayDiff = Math.floor(Math.round((dateFinish-dateStart)/1000)/86400)
   let time = 'Depart ' + hourStart + ':' + minStart + '\n' +
              'Arrive ' + hourFinish + ':' + minFinish
-  let extra = (hourStart > hourFinish) ? 1 : 0
+  let extra = (hourStart*60 + minStart > hourFinish*60 + minFinish) ? 1 : 0
   extra += dayDiff
   if (extra > 0) {
     time += ` (+${extra})`
