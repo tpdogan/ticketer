@@ -1,18 +1,26 @@
 function getUTC(country) {
+  let hour
   switch (country) {
     case 'US':
-      return -6
+      hour = -6
+      break;
     case 'CO' :
-      return -5
+      hour = -5
+      break;
     case 'NL':
-      return 1
+      hour = 1
+      break;
     case 'JP':
-      return 9
+      hour = 9
+      break;
     case 'AU':
-      return 10
+      hour = 10
+      break;
     default:
-      return 0
+      hour = 0
+      break;
   }
+  return hour*60
 }
 
 export default getUTC

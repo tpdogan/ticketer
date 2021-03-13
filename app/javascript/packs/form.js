@@ -1,5 +1,6 @@
 import autocomplete from './modules/autocomplete'
 import fetchPaths from './modules/fetchPaths'
+import getUTC from './modules/getUTC'
 import niceDuration from './modules/niceDuration'
 import transferCheck from './modules/transfer'
 
@@ -75,6 +76,8 @@ function showPaths(paths) {
         icons.tBodies[0].classList = body.classList
         icons.tBodies[0].classList.remove('hidden')
 
+        let arrive = new Date()
+
         for (let i = 0; i < ids-1; i++) {
           const start = cities.find(item => item.id == values[i])
           const finish = cities.find(item => item.id == values[i+1])
@@ -88,13 +91,32 @@ function showPaths(paths) {
           const th5 = document.createElement('th')
           const th6 = document.createElement('th')
 
+          const vehicle = values[ids + i*7]
+          const dur = values[ids + i*7 + 1]
+          const hour = values[ids + i*7 + 2]
+          const min = values[ids + i*7 + 3]
+          const per = values[ids + i*7 + 4]
+          const price = values[ids + i*7 + 5]
+
+          const nextTravelTime = nextTime(arrive, hour, min, per)
+          const nextTemp = new Date(nextTravelTime.getTime())
+          const nextMin = nextTemp.getMinutes()
+          console.log(nextTravelTime)
+          console.log(nextTemp)
+          console.log(nextMin)
+          console.log(dur)
+          console.log(-getUTC(start.country))
+          console.log(getUTC(finish.country))
+          arrive = nextTemp.setMinutes(nextMin + dur - getUTC(start.country) + getUTC(finish.country))
+          console.log(new Date(arrive))
+
           th0.innerHTML = start.name
           th1.innerHTML = finish.name
           th2.innerHTML = niceDate(selectedDate)
-          th3.innerHTML = niceTime(values[ids + i*7 + 2], values[ids + i*7 + 3], values[ids + i*7 + 4])
-          th4.innerHTML = niceDuration(values[ids + i*7 + 1])
-          th5.innerHTML = values[ids + i*7]
-          th6.innerHTML = values[ids + i*7 + 5]
+          th3.innerHTML = nextTravelTime
+          th4.innerHTML = niceDuration(dur)
+          th5.innerHTML = vehicle
+          th6.innerHTML = price
 
           tr.innerHTML += th0.outerHTML + th1.outerHTML + th2.outerHTML + th3.outerHTML + th4.outerHTML + th5.outerHTML + th6.outerHTML
 
@@ -113,18 +135,17 @@ function niceDate(date) {
   return Math.floor(day/10) + '' + (day%10) + '/' + Math.floor(month/10) + '' + (month%10) + '/' + Math.floor(year/10) + '' + (year%10)
 }
 
-function niceTime(hour, minute, periodicity) {
+function nextTime(startDate, hour, minute, periodicity) {
   const afterZero = (hour*60 + minute) % (24*60 / periodicity)
   const zeroHour = Math.floor(afterZero / 60)
   const zeroMin = afterZero % 60
 
-  const now = new Date()
   let date = new Date()
   date.setHours(zeroHour)
   date.setMinutes(zeroMin)
   date.setSeconds(0)
 
-  while (date < now) {
+  while (date < startDate) {
     const oldMinutes = date.getMinutes()
     date.setMinutes(oldMinutes + (24*60 / periodicity))
   }
