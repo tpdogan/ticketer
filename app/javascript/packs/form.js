@@ -134,7 +134,7 @@ function addBuyButton(table, data) {
   buybtn.className = 'button is-success is-full-width is-radiusless'
   buybtn.innerHTML = 'Buy It NOW'
   buybtn.addEventListener('click', () => {
-    location.href += 'passengers?' + Object.entries(data).map(e => e.join('=')).join('&');
+    location.href += 'passengers/new?' + Object.entries(data).map(e => e.join('=')).join('&');
   })
 
   buyth.appendChild(buybtn)
