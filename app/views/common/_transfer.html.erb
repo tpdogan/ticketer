@@ -2,10 +2,10 @@
   <div class="field">
     <div class="control" id='<%= "transfer#{transfer}__control" %>'>
       <h2 class="title is-3">
-        <%= transfer == 0 ? "Direct Routes" : "#{transfer} Trasnfer Routes" %>
+        <%= transfer == 0 ? "Direct Routes" : "#{transfer} Transfer Routes" %>
       </h2>
       <p id='<%= "transfer#{transfer}__none" %>'>
-        No <%= transfer == 0 ? "direct travel" : "#{transfer} trasnfer" %> options available.
+        No <%= transfer == 0 ? "direct travel" : "#{transfer} transfer" %> options available.
       </p>
       <table class="table is-hoverable has-text-centered is-fullwidth is-bordered is-narrow hidden mb-0" id='<%= "transfer#{transfer}__table" %>'>
         <thead class="has-background-warning">

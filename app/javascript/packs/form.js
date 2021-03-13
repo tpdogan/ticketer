@@ -101,14 +101,7 @@ function showPaths(paths) {
           const nextTravelTime = nextTime(arrive, hour, min, per)
           const nextTemp = new Date(nextTravelTime.getTime())
           const nextMin = nextTemp.getMinutes()
-          console.log(nextTravelTime)
-          console.log(nextTemp)
-          console.log(nextMin)
-          console.log(dur)
-          console.log(-getUTC(start.country))
-          console.log(getUTC(finish.country))
           arrive = nextTemp.setMinutes(nextMin + dur - getUTC(start.country) + getUTC(finish.country))
-          console.log(new Date(arrive))
 
           th0.innerHTML = start.name
           th1.innerHTML = finish.name
@@ -122,10 +115,29 @@ function showPaths(paths) {
 
           icons.tBodies[0].appendChild(tr)
         }
-        control.appendChild(icons)
+        icons.id = arrive
+        orderArrivalTime(control, icons)
       })
     }
   })
+}
+
+function orderArrivalTime(control, table) {
+  const allTables = control.querySelectorAll('.new_table')
+  let inserted = false
+
+  for (let i = 0; i < allTables.length; i++) {
+    const item = allTables[i];
+    if (item.id > table.id) {
+      control.insertBefore(table, item)
+      inserted = true
+      break
+    }
+  }
+
+  if (!inserted) {
+    control.appendChild(table)
+  }
 }
 
 function niceDate(date) {
