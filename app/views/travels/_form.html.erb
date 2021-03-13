@@ -46,14 +46,16 @@
 
     <div class="field mb-4 ml-2">
       <div class="control">
-        <%= label_tag 'Transfer', nil, class: "label ml-2" %>
+        <%= label_tag 'Transfer (up to)', nil, class: "label ml-2" %>
         <div class="is-flex-row-centered radio-box-wrap">
-          <p class="mr-2">Yes</p>
-          <div class="radio-box" id='yes'><i class="fa fa-check"></i></div>
-          <p class="ml-5 mr-2">No</p>
-          <div class="radio-box" id='no'><i class="fa fa-check hidden"></i></div>
+          <p class="mr-2">0</p>
+          <div class="radio-box" id='0'><i class="fa fa-check"></i></div>
+          <p class="ml-5 mr-2">1</p>
+          <div class="radio-box" id='1'><i class="fa fa-check hidden"></i></div>
+          <p class="ml-5 mr-2">2</p>
+          <div class="radio-box" id='2'><i class="fa fa-check hidden"></i></div>
         </div>
-        <%= hidden_field_tag :transfer, 'yes' %>
+        <%= hidden_field_tag :transfer, '0' %>
       </div>
     </div>
   </div>

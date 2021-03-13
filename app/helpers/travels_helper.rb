@@ -1,32 +1,23 @@
 module TravelsHelper
-  def getPaths(city_start_name, city_finish_name, passenger_count, transfer)
-    # Get city objects
-    city_start = City.find_by_name(city_start_name)
-    city_finish = City.find_by_name(city_finish_name)
+  def sqlTransfer(transfer, city_start, city_finish, passenger_count)
+    if transfer == 0
+      ActiveRecord::Base.connection.execute(
+        "SELECT
+          travels.start_id,
+          travels.finish_id,
+          travels.vehicle,
+          travels.duration,
+          travels.hour,
+          travels.minute,
+          travels.periodicity,
+          travels.price,
+          travels.no
+        FROM travels
+        WHERE travels.start_id = #{city_start.id}
+        AND travels.finish_id = #{city_finish.id}
+        AND travels.empty >= #{passenger_count}")
 
-    transfer_0 = 
-    ActiveRecord::Base.connection.execute(
-      "SELECT
-        travels.start_id,
-        travels.finish_id,
-        travels.vehicle,
-        travels.duration,
-        travels.hour,
-        travels.minute,
-        travels.periodicity,
-        travels.price,
-        travels.no
-      FROM travels
-      WHERE travels.start_id = #{city_start.id}
-      AND travels.finish_id = #{city_finish.id}
-      AND travels.empty >= #{passenger_count}")
-    
-    # For strict direct travels
-    if transfer == 'no'
-      return travels = [transfer_0]
-    # For non-strict direct travels
-    else
-      transfer_1 = 
+    elsif transfer == 1
       ActiveRecord::Base.connection.execute(
         "SELECT
           A.start_id AS start_id,
@@ -54,8 +45,7 @@ module TravelsHelper
         AND B.finish_id = #{city_finish.id}
         AND A.empty >= #{passenger_count}
         AND B.empty >= #{passenger_count}")
-
-      transfer_2 = 
+    else
       ActiveRecord::Base.connection.execute(
         "SELECT
           A.start_id AS start_id,
@@ -96,8 +86,46 @@ module TravelsHelper
         AND A.empty >= #{passenger_count}
         AND B.empty >= #{passenger_count}
         AND C.empty >= #{passenger_count}")
+    end
+  end
 
-      return travels = [transfer_0, transfer_1, transfer_2]
+  def getPaths(city_start_name, city_finish_name, passenger_count, transfer)
+    # Get city objects
+    city_start = City.find_by_name(city_start_name)
+    city_finish = City.find_by_name(city_finish_name)
+    
+    # For strict direct travels
+    if transfer == '0'
+      return [sqlTransfer(
+                0,
+                city_start,
+                city_finish,
+                passenger_count)]
+    # For non-strict direct travels
+    elsif transfer == '1'
+      return [sqlTransfer(
+                0,
+                city_start,
+                city_finish,
+                passenger_count),
+              sqlTransfer(1,
+                city_start,
+                city_finish,
+                passenger_count)]
+    else
+      return [sqlTransfer(
+                0,
+                city_start,
+                city_finish,
+                passenger_count),
+              sqlTransfer(1,
+                city_start,
+                city_finish,
+                passenger_count),
+              sqlTransfer(2,
+                city_start,
+                city_finish,
+                passenger_count)]
     end
   end
 end

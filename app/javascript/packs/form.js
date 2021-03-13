@@ -49,6 +49,7 @@ function showPaths(paths) {
   }
 
   [0, 1, 2].forEach((num) => {
+    console.log(paths)
     const transfer = paths[num]
     const none = document.getElementById(`transfer${num}__none`)
     const table = document.getElementById(`transfer${num}__table`)
