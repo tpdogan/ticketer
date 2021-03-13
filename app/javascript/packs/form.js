@@ -90,8 +90,8 @@ function showPaths(paths) {
           th0.innerHTML = start.name
           th1.innerHTML = finish.name
           th2.innerHTML = niceDate(selectedDate)
-          th3.innerHTML = 'time'
-          th4.innerHTML = niceTime(values[ids + i*7 + 1])
+          th3.innerHTML = niceTime(values[ids + i*7 + 2], values[ids + i*7 + 3], values[ids + i*7 + 4])
+          th4.innerHTML = niceDuration(values[ids + i*7 + 1])
           th5.innerHTML = values[ids + i*7]
           th6.innerHTML = values[ids + i*7 + 5]
 
@@ -105,7 +105,7 @@ function showPaths(paths) {
   })
 }
 
-function niceTime(duration) {
+function niceDuration(duration) {
   const hour = Math.round(duration/60)
   const minute = duration % 60
   let time = ''
@@ -122,4 +122,23 @@ function niceDate(date) {
   const month = date.getMonth() + 1
   const year = date.getYear() + 1900
   return Math.floor(day/10) + '' + (day%10) + '/' + Math.floor(month/10) + '' + (month%10) + '/' + Math.floor(year/10) + '' + (year%10)
+}
+
+function niceTime(hour, minute, periodicity) {
+  const afterZero = (hour*60 + minute) % (24*60 / periodicity)
+  const zeroHour = Math.floor(afterZero / 60)
+  const zeroMin = afterZero % 60
+
+  const now = new Date()
+  let date = new Date()
+  date.setHours(zeroHour)
+  date.setMinutes(zeroMin)
+  date.setSeconds(0)
+
+  while (date < now) {
+    const oldMinutes = date.getMinutes()
+    date.setMinutes(oldMinutes + (24*60 / periodicity))
+  }
+  
+  return date
 }
