@@ -5,8 +5,8 @@ class CreatePassengers < ActiveRecord::Migration[6.1]
       # Many transfers will be saved as different travels
       t.integer :travel_id
       
-      t.string  :first_name
-      t.string  :last_name
+      t.string :first_name
+      t.string :last_name
 
       t.string :date_of_birth
       t.string :passport_number
