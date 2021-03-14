@@ -5,8 +5,7 @@ import niceDuration from './niceDuration'
 import niceTime from "./niceTime"
 
 function dataToTable(data, cities, table, body) {
-  const values = Object.values(data)
-  const ids = (values.length+7)/8
+  const count = data.vehicle_3 ? 3 : data.vehicle_2 ? 2 : 1
 
   const icons = document.createElement('table')
   icons.innerHTML = table.innerHTML
@@ -19,9 +18,24 @@ function dataToTable(data, cities, table, body) {
 
   let arrive = new Date()
 
-  for (let i = 0; i < ids-1; i++) {
-    const start = cities.find(data => data.id == values[i])
-    const finish = cities.find(data => data.id == values[i+1])
+  for (let i = 0; i < count; i++) {
+    const startKey = 
+      i == 0 ? 'start_id' : 
+      i == 1 ? count == 2 ? 'middle_id' : 'middle_1_id' :
+      i == 2 ? 'middle_2_id' : 'start_id'
+
+    const finishKey = 
+      i == 2 ? 'finish_id' :
+      i == 1 ? count == 3 ? 'middle_2_id' : 'middle_id' :
+      i == 0 ? count == 3 ? 'middle_1_id' : count == 2 ? 'middle_id' : 'finish_id' : 'finish_id'
+
+      console.log(data[startKey])
+      console.log(data[finishKey])
+      console.log(startKey)
+      console.log(finishKey)
+
+    const start = cities.find(item => item.id == data[startKey])
+    const finish = cities.find(item => item.id == data[finishKey])
 
     const tr = document.createElement('tr')
     const th0 = document.createElement('th')
@@ -32,12 +46,12 @@ function dataToTable(data, cities, table, body) {
     const th5 = document.createElement('th')
     const th6 = document.createElement('th')
 
-    const vehicle = values[ids + i*7]
-    const dur = values[ids + i*7 + 1]
-    const hour = values[ids + i*7 + 2]
-    const min = values[ids + i*7 + 3]
-    const per = values[ids + i*7 + 4]
-    const price = values[ids + i*7 + 5]
+    const vehicle = data[`vehicle_${i+1}`]
+    const dur = data[`duration_${i+1}`]
+    const hour = data[`hour_${i+1}`]
+    const min = data[`minute_${i+1}`]
+    const per = data[`periodicity_${i+1}`]
+    const price = data[`price_${i+1}`]
 
     const nextTravelTime = nextTime(arrive, hour, min, per)
     const nextTemp = new Date(nextTravelTime.getTime())

@@ -22,10 +22,14 @@ class PassengersController < ApplicationController
       end
     end
 
-    redirect_to passengers_path(travel: params[:travel], ids: passengerIds)
+    redirect_to passengers_path(travel: travels, ids: passengerIds)
   end
 
   private
+
+  def travels
+    params.require(:travel).permit!
+  end
 
   def travel_params
     params.require(:travel).permit(:no_1, :no_2, :no_3)

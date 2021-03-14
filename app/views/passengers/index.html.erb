@@ -1,0 +1,20 @@
+<section class="section">
+  <%= image_tag('checkout', style: 'position: absolute; min-width: 100%; min-height: 100%; z-index: -10; left: 0; top: 0;') %>
+
+  <div class="container">
+
+    <%= hidden_field_tag :selected_travel, params[:travel].to_json %>
+    <%= render partial: 'common/transfer', :locals => {:transfer => -1} %>
+
+    <div class="columns">
+      <div class="column is-6 is-offset-3 has-background-light is-relative">
+        <% params[:ids].each_with_index do |id, index| %>
+          <%= render partial: 'passengers/show', locals: {passenger: Passenger.find(id), index: index} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= hidden_field_tag :city_list, City.all.order(:name).map{ |item| {id:item.id, name:item.name, country:item.country, latitude:item.latitude, longitude:item.longitude} }.to_json %>
+<%= javascript_pack_tag 'selected' %>
