@@ -26,13 +26,13 @@ function dataToTable(data, cities, table, body) {
 
     const finishKey = 
       i == 2 ? 'finish_id' :
-      i == 1 ? count == 3 ? 'middle_2_id' : 'middle_id' :
+      i == 1 ? count == 3 ? 'middle_2_id' : 'finish_id' :
       i == 0 ? count == 3 ? 'middle_1_id' : count == 2 ? 'middle_id' : 'finish_id' : 'finish_id'
 
-      console.log(data[startKey])
+      /*console.log(data[startKey])
       console.log(data[finishKey])
       console.log(startKey)
-      console.log(finishKey)
+      console.log(finishKey)*/
 
     const start = cities.find(item => item.id == data[startKey])
     const finish = cities.find(item => item.id == data[finishKey])

@@ -65,7 +65,7 @@ function showPaths(paths) {
       table.classList.remove('hidden')
 
       transfer.forEach((item) => {
-        console.log(item)
+        //console.log(item)
         const icons = dataToTable(item, cities, iconTable, body)
         addBuyButton(icons, item)
         orderArrivalTime(control, icons)
