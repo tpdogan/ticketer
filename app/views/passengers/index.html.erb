@@ -8,8 +8,13 @@
 
     <div class="columns">
       <div class="column is-6 is-offset-3 has-background-light is-relative">
+        <% shown = [] %>
         <% params[:ids].each_with_index do |id, index| %>
-          <%= render partial: 'passengers/show', locals: {passenger: Passenger.find(id), index: index} %>
+          <% passenger = Passenger.find(id) %>
+          <% if !shown.include? passenger.passport_number %>
+            <%= render partial: 'passengers/show', locals: {passenger: passenger, index: index} %>
+            <% shown.push(passenger.passport_number) %>
+          <% end %>
         <% end %>
       </div>
     </div>

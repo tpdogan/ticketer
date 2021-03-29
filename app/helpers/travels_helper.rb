@@ -5,13 +5,13 @@ module TravelsHelper
         "SELECT
           travels.start_id,
           travels.finish_id,
-          travels.vehicle,
-          travels.duration,
-          travels.hour,
-          travels.minute,
-          travels.periodicity,
-          travels.price,
-          travels.no
+          travels.vehicle AS vehicle_1,
+          travels.duration AS duration_1,
+          travels.hour AS hour_1,
+          travels.minute AS minute_1,
+          travels.periodicity AS periodicity_1,
+          travels.price AS price_1,
+          travels.no AS no_1
         FROM travels
         WHERE travels.start_id = #{city_start.id}
         AND travels.finish_id = #{city_finish.id}
