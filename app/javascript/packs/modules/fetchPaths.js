@@ -4,7 +4,7 @@ function fetchPaths(cityArray, callback) {
   if (cityArray.includes(from) && cityArray.includes(to)) {
     console.log(`Travel from ${from} to ${to}!`)
 
-    const url ='http://localhost:3000/travels'
+    const url ='/travels'
     const adults = document.getElementById('passenger_count').value
     const children = document.getElementById('child_count').value
     const transfer = document.getElementById('transfer').value
